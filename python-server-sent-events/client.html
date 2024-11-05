@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My server-sent events client</title>
+  </head>
+  <body>
+    <h1>Date time</h1>
+    <div id="dateTimeUpdates"></div>
+    <h1>Random number</h1>
+    <div id="randomUpdates"></div>
+    <script>
+      var dateTimeUpdates = document.getElementById('dateTimeUpdates');
+      var randomUpdates = document.getElementById('randomUpdates');
+      // Create a new EventSource that consumes events from the specified URL.
+      var evtSource = new EventSource('http://localhost:8000/events');
+      // Handle datetime events, show the data in the dateTimeUpdates div.
+      evtSource.addEventListener("datetime", function(e) {
+        dateTimeUpdates.innerHTML = e.data;
+      });
+      // Handle random events, show the data in the randomUpdates div.
+      evtSource.addEventListener("random", function(e) {
+        randomUpdates.innerHTML = e.data;
+      });
+  </script>
+</html>
